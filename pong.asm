@@ -20,13 +20,12 @@
 
 
 #BEGIN: clear_leds
-#------------------------------------------------------------------------------
 clear_leds:
-#------------------------------------------------------------------------------
-	li $t1, 96 #number of pixels on screen
+	li $t0, 0 #load the value 0 in $t0
 
-	sw $t0, LEDS + 8(zero)
-
+	sw $t0, LEDS (zero) #set leds[0] to t0
+	sw $t0, LEDS + 4(zero) #set leds[1] to t0
+	sw $t0, LEDS + 8(zero) #set leds[2] to t0
 
 ret
 #END: clear_leds
