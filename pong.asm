@@ -167,3 +167,48 @@ ret
 
 #----------------------
 #END: wait
+
+
+#BEGIN: draw_paddles
+#-------------------------------
+draw_paddles:
+   addi a0, zero, 0
+   ldw a1, PADDLE (zero)   #IMLÉMENTER LE STACK !!!
+   call set_pixel
+   addi a1, a1, 1
+   call set_pixel
+   addi t1, zero, 2
+   sub a1, a1, t1
+   call set_pixel
+   addi a0, zero, 11
+   ldw a1, PADDLE+4 (zero)
+   call set_pixel
+   addi a1, a1, 1
+   call set_pixel
+   sub a1, a1, t1
+   call set_pixel
+   
+ret   
+
+
+#------------------------------
+#END : draw_paddles
+
+
+
+#BEGIN move_paddles
+#-----------------------------
+move_paddles:
+   
+
+
+
+   up:
+
+
+   down:
+
+
+ret
+#--------------------------------------
+#END : move_paddles
