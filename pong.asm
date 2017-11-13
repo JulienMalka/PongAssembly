@@ -34,7 +34,7 @@ main:
      ldw a1, BALL+4 (zero)
      call set_pixel
      call hit_test
-     call wait
+    # call wait
      jmpi loop
     
    ret 
@@ -173,7 +173,7 @@ ret
 #-------------------------------
 draw_paddles:
    addi a0, zero, 0
-   ldw a1, PADDLE (zero)   #IMLÉMENTER LE STACK !!!
+   ldw a1, PADDLES (zero)   #IMLÉMENTER LE STACK !!!
    call set_pixel
    addi a1, a1, 1
    call set_pixel
@@ -181,7 +181,7 @@ draw_paddles:
    sub a1, a1, t1
    call set_pixel
    addi a0, zero, 11
-   ldw a1, PADDLE+4 (zero)
+   ldw a1, PADDLES+4 (zero)
    call set_pixel
    addi a1, a1, 1
    call set_pixel
