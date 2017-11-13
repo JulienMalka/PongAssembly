@@ -18,23 +18,25 @@
 
 
 main:
-   call clear_leds
-   addi a0, zero, 5
-   addi a1, zero, 3
-   call set_pixel
-   addi a0, zero, 0
-   addi a1, zero, 0
-   call set_pixel
-   call clear_leds
-   addi a0, zero, 11
-   addi a1, zero, 7
-   call set_pixel
-   addi a0, zero, 8
-   addi a1, zero, 6
-   call set_pixel
-   addi a0, zero, 10
-   addi a1, zero, 7
-   call set_pixel
+   addi t0, zero, 6
+   addi t1, zero, 4
+   addi t2, zero, 1
+   addi t3, zero, 0
+   stw t0, BALL(zero)
+   stw t1, BALL +4 (zero)
+   stw t2, BALL +8 (zero)
+   stw t3, BALL +12 (zero)
+   
+   loop:
+     call clear_leds
+     call move_ball
+     ldw a0, BALL (zero)
+     ldw a1, BALL+4 (zero)
+     call set_pixel
+     call hit_test
+     call wait
+     jmpi loop
+    
    ret 
    
 
@@ -92,3 +94,76 @@ set_pixel:
 #------------------------------------------------------------------------------
 ret
 #END: set_pixel
+
+
+#BEGIN : hit_test
+#------------------------
+hit_test:
+  ldw t0, BALL(zero)
+  ldw t1, BALL +4(zero)
+  addi t2, zero, 0
+  addi t3, zero, 11
+  addi t4, zero, 7
+  ldw t5, BALL +8(zero)
+  ldw t6, BALL +12(zero)
+  beq t0, t2, hit_x
+  beq t0, t3, hit_x
+  beq t1, t2, hit_y
+  beq t1, t4, hit_y 
+  jmpi fin
+
+  hit_x:
+    slli t2, t5, 1
+    sub t5, t5, t2
+    stw t5, BALL+8(zero)
+    jmpi fin
+
+  hit_y:  
+     
+    slli t2, t6, 1
+    sub t6, t6, t2
+    stw t6, BALL+12(zero)
+
+
+  fin:
+
+ret
+#-------------------------------
+#END: hit_test
+
+
+
+
+
+
+#BEGIN: move_ball
+#----------------------
+move_ball:
+   ldw t0, BALL(zero)
+   ldw t1, BALL +4(zero)
+   ldw t2, BALL+8(zero)
+   ldw t3, BALL+12(zero)
+   
+   add t0, t0, t2
+   add t1, t1, t3
+   stw t0, BALL(zero)
+   stw t1, BALL +4 (zero)
+
+ret
+#---------------------
+#END: move_ball
+
+#BEGIN: wait
+#----------------------
+wait:
+   addi t0, zero, 10000  #might be useful
+   addi t1, zero, 1
+   boucle:
+     sub t0, t0, t1
+     beq t0, zero, exit
+     jmpi boucle
+   exit:
+ret
+
+#----------------------
+#END: wait
