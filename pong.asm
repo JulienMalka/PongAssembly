@@ -1,4 +1,4 @@
-﻿# symbolic constants
+#symbolic constants
 .equ BALL, 	 0x1000 #ball state (its position and velocity)
 .equ PADDLES, 0x1010 #paddles position
 .equ SCORES,  0x1018 #game scores

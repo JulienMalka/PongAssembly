@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 ﻿# symbolic constants
-=======
-# symbolic constants
->>>>>>> f508be26af51cc5474b1da32a94a2f855cc6e983
 .equ BALL, 	 0x1000 #ball state (its position and velocity)
 .equ PADDLES, 0x1010 #paddles position
 .equ SCORES,  0x1018 #game scores
@@ -22,19 +18,11 @@
 
 main:
    addi sp, zero, LEDS
-<<<<<<< HEAD
    addi t0, zero, 5
    addi t1, zero, 5
    addi t2, zero, 1
    addi t3, zero, -1
    addi t4, zero, 4
-=======
-   addi t0, zero, 2
-   addi t1, zero, 3
-   addi t2, zero, -1
-   addi t3, zero, 1
-   addi t4, zero, 2
->>>>>>> f508be26af51cc5474b1da32a94a2f855cc6e983
    stw t0, BALL(zero)
    stw t1, BALL +4 (zero)
    stw t2, BALL +8 (zero)
@@ -50,20 +38,12 @@ main:
      ldw a0, BALL (zero)
      ldw a1, BALL+4 (zero)
      call set_pixel
-<<<<<<< HEAD
-=======
-     call hit_test
-     call move_paddles
->>>>>>> f508be26af51cc5474b1da32a94a2f855cc6e983
      call draw_paddles
      addi t0, zero, 1
      beq v0, t0, p1w
      addi t0, zero, 2
      beq v0, t0, p2w
-<<<<<<< HEAD
      call wait
-=======
->>>>>>> f508be26af51cc5474b1da32a94a2f855cc6e983
      jmpi loop
      
     p1w:
@@ -73,10 +53,7 @@ main:
       addi t2, zero, 10
       beq t0, t2, end  
       call display_score
-<<<<<<< HEAD
       call wait 
-=======
->>>>>>> f508be26af51cc5474b1da32a94a2f855cc6e983
       jmpi main
 
     p2w: 
@@ -86,22 +63,16 @@ main:
       addi t2, zero, 10
       beq t0, t2, end   
       call display_score
-<<<<<<< HEAD
       call wait
-=======
->>>>>>> f508be26af51cc5474b1da32a94a2f855cc6e983
       jmpi main
    
 
 end:
-<<<<<<< HEAD
 addi t5, zero, 64
 ldw t4, font_data(t5)
  stw t4, LEDS (zero)
  stw t4, LEDS+4 (zero)
  stw t4, LEDS+8 (zero)
-=======
->>>>>>> f508be26af51cc5474b1da32a94a2f855cc6e983
 jmpi end  
    ret 
    
@@ -170,15 +141,9 @@ hit_test:
 #Check if
 
 #Check if ball collides with side of board
-<<<<<<< HEAD
 #	addi t0, zero, 11
 #	beq t1, t0, p1_wins
 #	beq t1, zero, p2_wins
-=======
-	addi t0, zero, 11
-	beq t1, t0, p1_wins
-	beq t1, zero, p2_wins
->>>>>>> f508be26af51cc5474b1da32a94a2f855cc6e983
 
 #Check if ball collides with paddle_right
 	addi t0, zero, 10
@@ -198,25 +163,6 @@ hit_floor:
 	jmpi fin
 
 hit_paddle_right:
-<<<<<<< HEAD
-=======
-	ldw t5, PADDLES +4(zero)
-	beq t5, t2, invert_velocity_x
-	addi t5, t5, -1
-	beq t5, t2, invert_velocity_x
-	addi t5, t5, 2
-	beq t5, t2, invert_velocity_x
-	
-	ldw t5, PADDLES +4(zero)
-	add t6, zero, t1
-	add t7, zero, t2
-	add t6, t6, t3
-	add t7, t7, t4
-	addi t5, t5, -1
-	beq t5, t7, invert_velocity_xy
-	addi t5, t5, 2
-	beq t5, t7, invert_velocity_xy
->>>>>>> f508be26af51cc5474b1da32a94a2f855cc6e983
 
 	#condition
 	ldw t5, PADDLES +4(zero)
@@ -237,26 +183,14 @@ hit_paddle_right:
 	addi t5, zero, 1
 	beq t0, t5, invert_velocity_xy
 
-<<<<<<< HEAD
 	ldw t5, PADDLES +4(zero)
-=======
-	jmpi fin
-	
-hit_paddle_left:
-	ldw t5, PADDLES (zero)
->>>>>>> f508be26af51cc5474b1da32a94a2f855cc6e983
 	beq t5, t2, invert_velocity_x
 	addi t5, t5, -1
 	beq t5, t2, invert_velocity_x
 	addi t5, t5, 2
 	beq t5, t2, invert_velocity_x
-<<<<<<< HEAD
 	
 	ldw t5, PADDLES +4(zero)
-=======
-
-	ldw t5, PADDLES(zero)
->>>>>>> f508be26af51cc5474b1da32a94a2f855cc6e983
 	add t6, zero, t1
 	add t7, zero, t2
 	add t6, t6, t3
@@ -265,13 +199,10 @@ hit_paddle_left:
 	beq t5, t7, invert_velocity_xy
 	addi t5, t5, 2
 	beq t5, t7, invert_velocity_xy
-<<<<<<< HEAD
      
 	jmpi p1_wins
 	
 hit_paddle_left:
-=======
->>>>>>> f508be26af51cc5474b1da32a94a2f855cc6e983
 
 	#condition
 	ldw t5, PADDLES(zero)
@@ -291,7 +222,6 @@ hit_paddle_left:
 	and t0, t0, t7
 	addi t5, zero, 1
 	beq t0, t5, invert_velocity_xy
-<<<<<<< HEAD
 
 	ldw t5, PADDLES (zero)
 	beq t5, t2, invert_velocity_x
@@ -311,10 +241,6 @@ hit_paddle_left:
 	beq t5, t7, invert_velocity_xy
 	
 	jmpi p2_wins
-=======
-	
-	jmpi fin
->>>>>>> f508be26af51cc5474b1da32a94a2f855cc6e983
 
 hit_border_paddle_right:
 	
@@ -340,19 +266,11 @@ invert_velocity_xy:		#invert x and y velocity of the ball
 
 p2_wins:
 	addi v0, zero, 2
-<<<<<<< HEAD
 	br invert_velocity_x
 
 p1_wins:
 	addi v0, zero, 1			
 	br invert_velocity_x
-=======
-	jmpi fin
-
-p1_wins:
-	addi v0, zero, 1			
-	jmpi fin
->>>>>>> f508be26af51cc5474b1da32a94a2f855cc6e983
 
  
 fin:
@@ -442,17 +360,10 @@ move_paddles:
    andi t0, t7, 1 #get the last bit of edgeCapture
    andi t1, t7, 2 #get the 2th from end bit of edgeCpature
    cmpeqi t1, t1, 2
-<<<<<<< HEAD
    andi t3, t7, 4 #get the 3th from end bit of edgeCapture
    cmpeqi t3, t3, 4
    andi t2, t7, 8 #get the 4th from end bit of edgeCapture
    cmpeqi t2, t2, 8
-=======
-   andi t2, t7, 4 #get the 3th from end bit of edgeCapture
-   cmpeqi t2, t2, 4
-   andi t3, t7, 8 #get the 4th from end bit of edgeCapture
-   cmpeqi t3, t3, 8
->>>>>>> f508be26af51cc5474b1da32a94a2f855cc6e983
    
  
    ldw t4, PADDLES(zero)
@@ -472,22 +383,13 @@ move_paddles:
    sub t4, t4, t0
    add t4, t4, t1
    
-<<<<<<< HEAD
    sub t5, t5, t2
    add t5, t5, t3
-=======
-   add t5, t5, t2
-   sub t5, t5, t3
->>>>>>> f508be26af51cc5474b1da32a94a2f855cc6e983
  
    #return values into memory
    stw t4, PADDLES(zero)
    stw t5, PADDLES+4(zero)
-<<<<<<< HEAD
    stw zero, BUTTONS+4 (zero)
-=======
-   stw zero, BUTTONS +4(zero)
->>>>>>> f508be26af51cc5474b1da32a94a2f855cc6e983
  
 ret
 #--------------------------------------
